@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<div id="page">
+    <div id="cart" class="card" style="margin:20px">
+    </div>
+</div>
+
+
+
+
+
+
+@section Scripts{
+    <script src="~/js/travel.js"></script>
+    <script>
+        const thediv = document.querySelector('#page');
+        let datas = DATAS.map((DATAS, index, array) => {
+            const { Name, Toldescribe, Opentime, Website } = DATAS;
+            console.log(Name);
+            return (`<div class="card" style="margin:20px">
+                                <h5 class="card-header">${Name}</h5>
+                            <div class="card-body">
+                                   <h5 class="card-title">${Toldescribe}</h5>
+                                   <p class="card-text">${Opentime}</p>
+                                   <a href="${Website}" class="btn btn-primary">官網</a>
+                            </div>
+                        </div>`)
+        })
+        thediv.innerHTML = datas.join(" ");
+
+        //$.each(DATAS, function (i, i_value) {
+        //    $("#page").append(`<div id="cart${i}" class="card" style="margin:20px"></div>`);
+        //    $(`#cart${i}`).append(`<h5 id="head${i}" class="card-header">${i_value.Name}</h5>
+        //    <div id="incl${i}" class="card-body"></div>`);
+        //    $(`#incl${i}`).append(`<h5 class="card-title">${i_value.Toldescribe}</h5>
+        //    <p class="card-text">${i_value.Opentime}</p>
+        //    <a href="${i_value.Website}" class="btn btn-primary">官網</a>`);
+        //});
+    </script>
+}
