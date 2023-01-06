@@ -60,9 +60,10 @@
                     const datas = xhr.responseText;
                     span_name.innerHTML = `<h6>${datas}</h6>`;
                 })
-
-                xhr.open("GET", `/Home/check?name=${txtName.value}`);
-                xhr.send();//開始呼叫AJAX
+                //xhr.open("GET", `/Home/check?name=${txtName.value}`);
+                xhr.open("POST", `/Home/check`)
+                xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                xhr.send(`name=${txtName.value}`);//開始呼叫AJAX
             }
         })
     </script>
