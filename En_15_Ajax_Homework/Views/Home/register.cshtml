@@ -1,0 +1,77 @@
+﻿@model En_15_Ajax_Homework.Models.Member
+
+@{
+    ViewData["Title"] = "register";
+}
+
+<h1>register</h1>
+
+<h4>Member</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="register">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MemberId" class="control-label"></label>
+                <input asp-for="MemberId" class="form-control" id="memberid" />
+                <span asp-validation-for="MemberId" class="text-danger" id="span_memberid"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" id="name" />
+                <span asp-validation-for="Name" class="text-danger" id="span_name"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" id="email" />
+                <span asp-validation-for="Email" class="text-danger" id="span_email"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@*/home/register*@
+
+@section Scripts {
+    <script>
+        var xhr = new XMLHttpRequest();
+        txtName = document.querySelector(`#name`);
+        span_name = document.querySelector(`#span_name`);
+
+        $(`#name`).blur(function () {
+            if ($(`#name`).val().length > 0)
+            {
+                xhr.addEventListener("load", () => {
+                    const datas = xhr.responseText;
+                    span_name.innerHTML = `<h6>${datas}</h6>`;
+                })
+
+                xhr.open("GET", `/Home/check?name=${txtName.value}`);
+                xhr.send();//開始呼叫AJAX
+            }
+        })
+    </script>
+
+
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
