@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "address";
+}
+
+<h1>address</h1>
+
+<select id="city"></select>
+<select id="site"></select>
+<select id="road"></select>
+
+@section Scripts{
+
+    <script>
+        const sele_city = document.querySelector("#city");
+        const sele_site = document.querySelector("#site")
+        const sele_road = document.querySelector("#road")
+
+        sele_city.addEventListener('change', () => { loadsite() })
+        sele_site.addEventListener('change', () => { loadroad() })
+
+        loadcity();
+
+        async function loadcity() {
+            const response = await fetch(`@Url.Content("~/Home/city")`);
+            const data = await response.json();
+            const selecity = data.map(value => `<option value="${value}">${value}</option>`);
+            sele_city.innerHTML = selecity.join("");
+            loadsite();
+        }
+
+        async function loadsite() {
+            const city = $(`#city`).val();
+            const response = await fetch(`@Url.Content("~/Home/site?city=${city}")`);
+            const data = await response.json();
+            const selecity = data.map(value => `<option value="${value}">${value}</option>`);
+            sele_site.innerHTML = selecity.join("");
+            loadroad();
+        }
+
+        async function loadroad() {
+            const site = $(`#site`).val();
+            const response = await fetch(`@Url.Content("~/Home/road?site=${site}")`);
+            const data = await response.json();
+            const selesite = data.map(value => `<option value="${value}">${value}</option>`);
+            sele_road.innerHTML = selesite.join("");
+            console.log(data);
+        }
+    </script>
+
+}

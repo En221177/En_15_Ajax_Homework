@@ -45,5 +45,33 @@ namespace En_15_Ajax_Homework.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+
+
+
+        public IActionResult address()
+        {
+            return View();
+        }
+
+        public IActionResult city()
+        {
+            var cities = _context.Addresses.Select(c => c.City).Distinct();
+            return Json(cities);
+        }
+
+        public IActionResult site(string city)
+        {
+            var site = _context.Addresses.Where(c => c.City == city).Select(s => s.SiteId).Distinct();
+            return Json(site);
+        }
+
+        public IActionResult road(string site)
+        {
+            var road = _context.Addresses.Where(s => s.SiteId == site).Select(r => r.Road).Distinct();
+            return Json(road);
+        }
+
     }
 }
